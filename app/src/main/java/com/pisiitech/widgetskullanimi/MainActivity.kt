@@ -19,7 +19,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.pisiitech.widgetskullanimi.ui.theme.WidgetsKullanimiTheme
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
@@ -60,7 +64,15 @@ fun SayfaButtonTextTextField() {
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Gelen Veri: ${alinanVeri.value}")
+        Text(
+            text = "Gelen Veri: ${alinanVeri.value}",
+            color = Color.White,
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            style = TextStyle(
+                background = Color.Blue
+                )
+            )
         TextField(
             value = tf.value,
             onValueChange = {tf.value = it },
