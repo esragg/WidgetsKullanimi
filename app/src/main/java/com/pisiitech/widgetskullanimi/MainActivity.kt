@@ -3,10 +3,13 @@ package com.pisiitech.widgetskullanimi
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -23,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pisiitech.widgetskullanimi.ui.theme.WidgetsKullanimiTheme
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
@@ -80,7 +84,14 @@ fun SayfaButtonTextTextField() {
         )
         Button(onClick = {
             alinanVeri.value = tf.value
-        }) {
+        },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Red,
+                contentColor = Color.White
+            ),
+            border = BorderStroke(1.dp, Color.Black),
+            shape = RoundedCornerShape(50)
+            ) {
             Text(text = "Veriyi Al")
         }
         OutlinedTextField(
@@ -90,7 +101,14 @@ fun SayfaButtonTextTextField() {
         )
         OutlinedButton(onClick = {
             alinanVeri.value = tfOutlined.value
-        }) {
+        },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Red,
+                contentColor = Color.White
+            ),
+            border = BorderStroke(1.dp, Color.Black),
+            shape = RoundedCornerShape(50)
+        ) {
             Text(text = "Veriyi Al Outlined")
         }
     }
