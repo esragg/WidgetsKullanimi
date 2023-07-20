@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -52,6 +54,7 @@ fun GreetingPreview() {
 @Composable
 fun SayfaButtonTextTextField() {
     val tf = remember { mutableStateOf("") }
+    val tfOutlined = remember { mutableStateOf("") }
     val alinanVeri = remember { mutableStateOf("") }
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly,
@@ -67,7 +70,16 @@ fun SayfaButtonTextTextField() {
             alinanVeri.value = tf.value
         }) {
             Text(text = "Veriyi Al")
-            
+        }
+        OutlinedTextField(
+            value = tfOutlined.value,
+            onValueChange = {tfOutlined.value = it },
+            label = { Text(text = "Veri giriniz")}
+        )
+        OutlinedButton(onClick = {
+            alinanVeri.value = tfOutlined.value
+        }) {
+            Text(text = "Veriyi Al Outlined")
         }
     }
 }
