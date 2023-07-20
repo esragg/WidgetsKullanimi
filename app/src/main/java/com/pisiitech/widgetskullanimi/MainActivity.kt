@@ -22,6 +22,8 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -53,7 +55,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SayfaFab()
+                    SayfaSwitch()
                 }
             }
         }
@@ -66,7 +68,36 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     WidgetsKullanimiTheme {
-        SayfaFab()
+        SayfaSwitch()
+    }
+}
+
+@Composable
+fun SayfaSwitch() {
+    val switchDurum = remember { mutableStateOf(false) }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Switch(
+            checked = switchDurum.value,
+            onCheckedChange = {
+                switchDurum.value = it
+                Log.e("Switch secildi", it.toString())
+            },
+            colors = SwitchDefaults.colors(
+                checkedTrackColor = Color.Red,//cubuk rengi
+                checkedThumbColor = Color.Blue, //top rengi
+                uncheckedTrackColor = Color.Green,
+                uncheckedThumbColor = Color.Black
+            )
+        )
+        Button(onClick = {
+            Log.e("Switch en son durum", switchDurum.value.toString())
+        }) {
+            Text(text = "Goster")
+        }
     }
 }
 
