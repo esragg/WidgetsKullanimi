@@ -3,16 +3,22 @@ package com.pisiitech.widgetskullanimi
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.widget.CheckBox
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxColors
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
@@ -55,7 +61,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SayfaSwitch()
+                    SayfaCheckBox()
                 }
             }
         }
@@ -68,9 +74,40 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     WidgetsKullanimiTheme {
-        SayfaSwitch()
+        SayfaCheckBox()
     }
 }
+
+
+@Composable
+fun SayfaCheckBox() {
+    val checkboxDurum = remember { mutableStateOf(false) }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row {
+            Checkbox(
+                checked = checkboxDurum.value,
+                onCheckedChange = {
+                    checkboxDurum.value = it
+                    Log.e("CheckBox secildi", it.toString())
+                },
+                colors = CheckboxDefaults.colors(
+                    checkedColor = Color.Red
+                )
+            )
+            Text(text = "Jetpack Compose", modifier = Modifier.padding(10.dp))
+        }
+        Button(onClick = {
+            Log.e("CheckBox en son durum", checkboxDurum.value.toString())
+        }) {
+            Text(text = "Goster")
+        }
+    }
+}
+
 
 @Composable
 fun SayfaSwitch() {
