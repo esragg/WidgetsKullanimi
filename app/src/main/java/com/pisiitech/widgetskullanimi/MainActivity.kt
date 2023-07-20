@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,6 +18,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,11 +27,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pisiitech.widgetskullanimi.ui.theme.WidgetsKullanimiTheme
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
+import java.net.PasswordAuthentication
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,7 +85,16 @@ fun SayfaButtonTextTextField() {
         TextField(
             value = tf.value,
             onValueChange = {tf.value = it },
-            label = { Text(text = "Veri giriniz")}
+            label = { Text(text = "Veri giriniz")},
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = Color.Gray,
+                textColor = Color.Red,
+                focusedIndicatorColor = Color.Green,
+                focusedLabelColor = Color.Yellow
+            ),
+            visualTransformation = PasswordVisualTransformation(), //girdigimizi sifre olarak * li hale donusturuyor
+            //klavyenin turunu degistirme
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)//sadece sayi girecegimi varsayarsak
         )
         Button(onClick = {
             alinanVeri.value = tf.value
