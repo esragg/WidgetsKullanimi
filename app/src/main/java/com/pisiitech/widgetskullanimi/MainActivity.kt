@@ -1,6 +1,8 @@
 package com.pisiitech.widgetskullanimi
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -12,9 +14,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -25,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -46,7 +53,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SayfaButtonTextTextField()
+                    SayfaFab()
                 }
             }
         }
@@ -59,8 +66,34 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     WidgetsKullanimiTheme {
-        SayfaButtonTextTextField()
+        SayfaFab()
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun SayfaFab() {
+    Scaffold(
+        content = {
+
+        },
+        floatingActionButton = {
+            ExtendedFloatingActionButton( //Yazili Fab
+                onClick = {
+                    Log.e("Fab","Tiklandi")
+                },
+                text = { Text(text = "EKLE", color = Color.White)},
+                containerColor = Color.Red,
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ekle_resim),
+                        contentDescription = "Fab_ekle_icon",
+                        tint = Color.White)
+                }
+            )
+        }
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
