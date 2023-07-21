@@ -32,6 +32,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
@@ -68,7 +69,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SayfaTiklanma()
+                    SayfaRadioButton()
                 }
             }
         }
@@ -79,10 +80,40 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     WidgetsKullanimiTheme {
-        SayfaTiklanma()
+        SayfaRadioButton()
     }
 }
-
+@Composable
+fun SayfaRadioButton() {
+    val secilenIndex = remember { mutableStateOf(0) }
+    val takimListesi = listOf("Real Madrid", "Barcelona", "Manchester United","Bayern Munich","Chelsea")
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Column {
+            takimListesi.forEachIndexed{indeks,takim ->
+                Row(modifier = Modifier.clickable {
+                    secilenIndex.value = indeks
+                    Log.e("RadioButton secildi", takim)
+                }) {
+                   RadioButton(selected = (takim == takimListesi[secilenIndex.value]),
+                       onClick = {
+                           secilenIndex.value = indeks
+                           Log.e("RadioButton secildi", takim)
+                       })
+                    Text(text = takim, modifier = Modifier.padding(10.dp))
+                }
+            }
+        }
+        Button(onClick = {
+            Log.e("RadioButton enson durum", takimListesi[secilenIndex.value])
+        }) {
+            Text(text = "Goster")
+        }
+    }
+}
 @Composable
 fun SayfaTiklanma() {
     Column(
@@ -93,17 +124,19 @@ fun SayfaTiklanma() {
         Box(modifier = Modifier
             .size(100.dp)
             .background(Color.Red)
-            .pointerInput(Unit){ detectTapGestures(
-                onTap = {//normal tiklanilma islemi
-                    Log.e("Box","Tiklandi")
-                },
-                onDoubleTap = {
-                    Log.e("Box","Cift Tiklandi")
-                },
-                onLongPress = {
-                    Log.e("Box","Uzerine Uzun Basildi")
-                }
-            ) }
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onTap = {//normal tiklanilma islemi
+                        Log.e("Box", "Tiklandi")
+                    },
+                    onDoubleTap = {
+                        Log.e("Box", "Cift Tiklandi")
+                    },
+                    onLongPress = {
+                        Log.e("Box", "Uzerine Uzun Basildi")
+                    }
+                )
+            }
         )
     }
 }
