@@ -3,6 +3,9 @@ package com.pisiitech.widgetskullanimi
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.CheckBox
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -59,6 +62,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.pisiitech.widgetskullanimi.ui.theme.WidgetsKullanimiTheme
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 import java.net.PasswordAuthentication
@@ -73,7 +77,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SayfaProgressVeSlider()
+                    SayfaWebview()
                 }
             }
         }
@@ -84,8 +88,25 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     WidgetsKullanimiTheme {
-        SayfaProgressVeSlider()
+        SayfaWebview()
     }
+}
+@SuppressLint("SetJavaScriptEnabled")
+@Composable
+fun SayfaWebview() {
+    val url = "https://gelecegiyazanlar.turkcell.com.tr/"
+    AndroidView(factory = {
+        WebView(it).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            webViewClient = WebViewClient()
+            loadUrl(url)
+        }
+    }, update = {
+        it.loadUrl(url)
+    })
 }
 @Composable
 fun SayfaProgressVeSlider() {
