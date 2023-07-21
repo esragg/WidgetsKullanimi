@@ -36,6 +36,8 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -88,6 +90,7 @@ fun GreetingPreview() {
 @Composable
 fun SayfaProgressVeSlider() {
     val progressDurum = remember { mutableStateOf(false) }
+    val sliderDeger = remember { mutableStateOf(0f) } //slider bize ondalikli sekilde sonuc veriyor
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly,
@@ -111,8 +114,22 @@ fun SayfaProgressVeSlider() {
             }
         }
 
-        Button(onClick = {
+        Text(text = "Sonuc : ${sliderDeger.value.toInt()}") //kusurati gormek istemedigimden
 
+        Slider(
+            value = sliderDeger.value,
+            onValueChange = {sliderDeger.value = it },
+            valueRange = 0f..100f,
+            modifier = Modifier.padding(all = 20.dp),
+            colors = SliderDefaults.colors(
+                thumbColor = Color.Red,
+                activeTrackColor = Color.Blue,
+                inactiveTrackColor = Color.Yellow
+            )
+        )
+
+        Button(onClick = {
+            Log.e("Slider", sliderDeger.value.toInt().toString())
         }) {
             Text(text = "Goster")
         }
