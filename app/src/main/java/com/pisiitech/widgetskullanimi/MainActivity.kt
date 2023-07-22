@@ -32,6 +32,8 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
@@ -82,7 +84,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SayfaImage()
+                    SayfaDropDownMenu()
                 }
             }
         }
@@ -93,10 +95,46 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     WidgetsKullanimiTheme {
-        SayfaImage()
+        SayfaDropDownMenu()
     }
 }
 
+
+@Composable
+fun SayfaDropDownMenu() {
+    val menuAcilisKontrol = remember { mutableStateOf(false) }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box {
+           Button(onClick = {
+                menuAcilisKontrol.value = true
+           }) {
+               Text(text = "Goster")
+           }
+
+            DropdownMenu(
+                expanded = menuAcilisKontrol.value,
+                onDismissRequest = {
+                    menuAcilisKontrol.value = false}) {
+                DropdownMenuItem(
+                    text = { Text(text = "Sil") },
+                    onClick = {
+                        Log.e("Menu","Sil secildi")
+                        menuAcilisKontrol.value = false
+                    })
+                DropdownMenuItem(
+                    text = { Text(text = "Guncelle") },
+                    onClick = {
+                        Log.e("Menu","Guncelle secildi")
+                        menuAcilisKontrol.value = false
+                    })
+            }
+        }
+    }
+}
 @Composable
 fun SayfaImage() {
     Column {
