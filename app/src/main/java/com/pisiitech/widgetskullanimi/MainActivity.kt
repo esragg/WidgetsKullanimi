@@ -84,7 +84,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SayfaDropDownMenu()
+                    SayfaDinamikDropDownMenu()
                 }
             }
         }
@@ -95,7 +95,55 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     WidgetsKullanimiTheme {
-        SayfaDropDownMenu()
+        SayfaDinamikDropDownMenu()
+    }
+}
+
+@Composable
+fun SayfaDinamikDropDownMenu() {
+    val ulkeListe = listOf("Turkiye", "Italya", "Almanya", "Japonya", "Rusya", "Cin")
+    val menuAcilisKontrol = remember { mutableStateOf(false) }
+    val secilenIndeks = remember { mutableStateOf(0) }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box() {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .size(100.dp, 50.dp)
+                    .clickable {
+                        menuAcilisKontrol.value = true
+                    }
+                ) {
+                Text(text = ulkeListe[secilenIndeks.value])
+                Image(painter = painterResource(id = R.drawable.dropdownmenu_resim),
+                    contentDescription = "")
+
+            }
+            DropdownMenu(
+                expanded = menuAcilisKontrol.value,
+                onDismissRequest = { menuAcilisKontrol.value = false}) {
+
+                ulkeListe.forEachIndexed { indeks, ulke ->
+                    DropdownMenuItem(
+                        text = { Text(text = ulke) },
+                        onClick = {
+                            Log.e("Menu","Ulke secildi: $ulke")
+                            menuAcilisKontrol.value = false
+                            secilenIndeks.value = indeks
+                        })
+                }
+            }
+        }
+        Button(onClick = {
+            Log.e("Menu","En son secilen ulke: ${ulkeListe[secilenIndeks.value]}")
+        }) {
+            Text(text = "Goster")
+        }
     }
 }
 
